@@ -21,6 +21,9 @@ public struct GameState: Codable {
     // Research tracking
     public var researchedTech: [String] = [] // IDs of completed research
     
+    // Prestige tracking
+    public var prestige: Int = 0 // Prestige level for card generation
+    
     public init(
         materials: Double = 0,
         energy: Double = 0,
@@ -29,7 +32,8 @@ public struct GameState: Codable {
         lastUpdate: Date = Date(),
         inHand: [Card] = [],
         playedCards: [Card] = [],
-        researchedTech: [String] = []
+        researchedTech: [String] = [],
+        prestige: Int = 0
     ) {
         self.materials = materials
         self.energy = energy
@@ -39,6 +43,7 @@ public struct GameState: Codable {
         self.inHand = inHand
         self.playedCards = playedCards
         self.researchedTech = researchedTech
+        self.prestige = prestige
     }
 }
 

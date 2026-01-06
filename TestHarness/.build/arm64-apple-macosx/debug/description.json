@@ -24,6 +24,10 @@
       "inputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Card.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift"
         },
         {
@@ -33,6 +37,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Research.swift"
         },
         {
           "kind" : "file",
@@ -51,9 +59,11 @@
       "moduleName" : "IdleTowerCore",
       "moduleOutputPath" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule",
       "objects" : [
+        "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Card.swift.o",
         "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o",
         "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o",
         "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o",
+        "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Research.swift.o",
         "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o"
       ],
       "otherArguments" : [
@@ -97,6 +107,10 @@
       "outputs" : [
         {
           "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Card.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o"
         },
         {
@@ -109,6 +123,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Research.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o"
         },
         {
@@ -118,9 +136,11 @@
       ],
       "prepareForIndexing" : false,
       "sources" : [
+        "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Card.swift",
         "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift",
         "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Economy.swift",
         "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift",
+        "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Research.swift",
         "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Simulator.swift"
       ],
       "tempsPath" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build",
@@ -222,9 +242,11 @@
       "idletowercore",
       "-incremental",
       "-c",
+      "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Card.swift",
       "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift",
       "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Economy.swift",
       "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift",
+      "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Research.swift",
       "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Simulator.swift",
       "-I",
       "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules",
@@ -343,6 +365,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Card.swift"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift"
         },
         {
@@ -352,6 +378,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Research.swift"
         },
         {
           "kind" : "file",
@@ -397,6 +427,10 @@
         },
         {
           "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Card.swift.o"
+        },
+        {
+          "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o"
         },
         {
@@ -406,6 +440,10 @@
         {
           "kind" : "file",
           "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o"
+        },
+        {
+          "kind" : "file",
+          "name" : "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Research.swift.o"
         },
         {
           "kind" : "file",

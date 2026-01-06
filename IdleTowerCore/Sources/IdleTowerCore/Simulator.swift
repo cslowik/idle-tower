@@ -151,5 +151,125 @@ public final class Simulator {
             return "Failed to encode game state: \(error)"
         }
     }
+    
+    // MARK: - Card Methods
+    
+    /// Generates a random card based on prestige level and available CardDefs
+    /// Higher prestige levels may unlock more powerful cards or increase effect values
+    /// - Returns: A randomly generated Card instance, or nil if no CardDefs are available
+    private func generateRandomCard() -> Card? {
+        guard !catalog.cardDefs.isEmpty else { return nil }
+        
+        // Select a random CardDef from available templates
+        let randomIndex = Int.random(in: 0..<catalog.cardDefs.count)
+        let cardDef = catalog.cardDefs[randomIndex]
+        
+        // Generate unique card ID
+        let cardId = UUID().uuidString
+        
+        // Scale effect value based on prestige level (higher prestige = stronger effects)
+        // Base effect value is multiplied by (1 + prestige * 0.1), so prestige 10 = 2x effect
+        let prestigeMultiplier = 1.0 + (Double(state.prestige) * 0.1)
+        let scaledEffectValue = cardDef.effectValue * prestigeMultiplier
+        
+        // Create card instance from CardDef
+        return Card(
+            id: cardId,
+            defId: cardDef.id,
+            name: cardDef.name,
+            description: cardDef.description,
+            effectType: cardDef.effectType,
+            effectValue: scaledEffectValue
+        )
+    }
+    
+    /// Awards a random card to the player's hand
+    /// Card is generated on-the-fly based on prestige level and CardDef templates
+    /// - Returns: True if card was successfully awarded, false otherwise
+    @discardableResult
+    public func awardRandomCard() -> Bool {
+        guard let card = generateRandomCard() else { return false }
+        state.inHand.append(card)
+        return true
+    }
+    
+    /// Plays a card from the player's hand, moving it to playedCards
+    /// - Parameter cardId: The unique ID of the card to play
+    /// - Returns: True if card was successfully played, false if card not found in hand
+    public func playCard(cardId: String) -> Bool {
+        guard let index = state.inHand.firstIndex(where: { $0.id == cardId }) else {
+            return false
+        }
+        
+        let card = state.inHand.remove(at: index)
+        state.playedCards.append(card)
+        return true
+    }
+    
+    // MARK: - Research Methods
+    
+    /// Purchases a research item using Data
+    /// Validates prerequisites and available Data before purchasing
+    /// - Parameter researchId: The ID of the research to purchase
+    /// - Returns: True if research was successfully purchased, false otherwise
+    public func buyResearch(researchId: String) -> Bool {
+        // Find the research definition
+        guard let researchDef = catalog.availableResearchTree.first(where: { $0.id == researchId }) else {
+            return false
+        }
+        
+        // Check if already researched
+        guard !state.researchedTech.contains(researchId) else {
+            return false
+        }
+        
+        // Check prerequisites
+        for prerequisiteId in researchDef.prerequisites {
+            guard state.researchedTech.contains(prerequisiteId) else {
+                return false
+            }
+        }
+        
+        // Check if player has enough Data
+        guard state.data >= researchDef.cost else {
+            return false
+        }
+        
+        // Purchase the research
+        state.data -= researchDef.cost
+        state.researchedTech.append(researchId)
+        return true
+    }
+    
+    /// Gets the research definition for a given research ID
+    /// - Parameter researchId: The ID of the research
+    /// - Returns: The ResearchDef if found, nil otherwise
+    public func researchDef(id researchId: String) -> ResearchDef? {
+        return catalog.availableResearchTree.first(where: { $0.id == researchId })
+    }
+    
+    /// Checks if a research item is available for purchase (prerequisites met, not already researched)
+    /// - Parameter researchId: The ID of the research to check
+    /// - Returns: True if research can be purchased, false otherwise
+    public func canBuyResearch(researchId: String) -> Bool {
+        guard let researchDef = catalog.availableResearchTree.first(where: { $0.id == researchId }) else {
+            return false
+        }
+        
+        // Check if already researched
+        if state.researchedTech.contains(researchId) {
+            return false
+        }
+        
+        // Check prerequisites
+        for prerequisiteId in researchDef.prerequisites {
+            if !state.researchedTech.contains(prerequisiteId) {
+                return false
+            }
+        }
+        
+        // Check if player has enough Data
+        return state.data >= researchDef.cost
+    }
 }
 
