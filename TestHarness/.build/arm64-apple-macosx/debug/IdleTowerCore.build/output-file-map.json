@@ -1,0 +1,29 @@
+{
+  "": {
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/master.swiftdeps"
+  },
+  "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift": {
+    "dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.d",
+    "object": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o",
+    "swiftmodule": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog~partial.swiftmodule",
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swiftdeps"
+  },
+  "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Economy.swift": {
+    "dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.d",
+    "object": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o",
+    "swiftmodule": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy~partial.swiftmodule",
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swiftdeps"
+  },
+  "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift": {
+    "dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.d",
+    "object": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o",
+    "swiftmodule": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState~partial.swiftmodule",
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swiftdeps"
+  },
+  "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Simulator.swift": {
+    "dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.d",
+    "object": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o",
+    "swiftmodule": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator~partial.swiftmodule",
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swiftdeps"
+  }
+}

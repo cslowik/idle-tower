@@ -1,0 +1,4 @@
+module IdleTowerCore {
+    header "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/IdleTowerCore-Swift.h"
+    requires objc
+}

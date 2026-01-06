@@ -25,7 +25,7 @@ public final class Simulator {
             state.energy += Double(count) * production.energy * dt
             state.data += Double(count) * production.data * dt
         }
-        state.lastUpdate = .now
+        state.lastUpdate = Date()
     }
 
     public func buyProducer(id: String) -> Bool {

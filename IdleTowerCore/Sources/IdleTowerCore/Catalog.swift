@@ -7,7 +7,7 @@
 
 import Foundation
 
-public struct ResourceCost: Codable {
+public struct ResourceCost: Codable, Sendable {
     public var materials: Double = 0
     public var energy: Double = 0
     public var data: Double = 0
@@ -19,7 +19,7 @@ public struct ResourceCost: Codable {
     }
 }
 
-public struct ResourceOutput: Codable {
+public struct ResourceOutput: Codable, Sendable {
     public var materials: Double = 0
     public var energy: Double = 0
     public var data: Double = 0
@@ -31,7 +31,7 @@ public struct ResourceOutput: Codable {
     }
 }
 
-public struct ProducerDef: Codable {
+public struct ProducerDef: Codable, Sendable {
     public let id: String
     public let name: String
     public let baseCost: ResourceCost
@@ -45,7 +45,7 @@ public struct ProducerDef: Codable {
     }
 }
 
-public struct Catalog {
+public struct Catalog: Sendable {
     public let producers: [ProducerDef]
     
     public init(producers: [ProducerDef]) {

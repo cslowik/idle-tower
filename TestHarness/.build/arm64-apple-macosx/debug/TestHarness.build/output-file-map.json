@@ -1,0 +1,11 @@
+{
+  "": {
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/master.swiftdeps"
+  },
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/Sources/TestHarness/main.swift": {
+    "dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.d",
+    "object": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swift.o",
+    "swiftmodule": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main~partial.swiftmodule",
+    "swift-dependencies": "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swiftdeps"
+  }
+}

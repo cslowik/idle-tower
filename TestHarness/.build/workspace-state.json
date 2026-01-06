@@ -1,0 +1,27 @@
+{
+  "object" : {
+    "artifacts" : [
+
+    ],
+    "dependencies" : [
+      {
+        "basedOn" : null,
+        "packageRef" : {
+          "identity" : "idletowercore",
+          "kind" : "fileSystem",
+          "location" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore",
+          "name" : "IdleTowerCore"
+        },
+        "state" : {
+          "name" : "fileSystem",
+          "path" : "/Users/chrisslowik/Developer/IdleTower/IdleTowerCore"
+        },
+        "subpath" : "idletowercore"
+      }
+    ],
+    "prebuilts" : [
+
+    ]
+  },
+  "version" : 7
+}

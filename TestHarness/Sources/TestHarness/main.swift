@@ -8,7 +8,21 @@
 import Foundation
 import IdleTowerCore
 
-let simulator = Simulator()
+// TEMPORARY: For testing producers - grant initial resources and buy some
+var testState = GameState()
+testState.materials = 1000  // Enough to buy several producers
+let simulator = Simulator(state: testState)
+
+// Buy some producers to test production
+print("Buying test producers...")
+simulator.buyProducer(id: "miner")  // Costs 10 materials
+simulator.buyProducer(id: "miner")  // Costs 11.5 materials (1.15x)
+simulator.buyProducer(id: "miner")  // Costs 13.225 materials
+simulator.buyProducer(id: "generator")  // Costs 50 materials
+print("Initial state: Materials=\(simulator.state.materials), Energy=\(simulator.state.energy), Data=\(simulator.state.data)")
+print("Producers: \(simulator.state.producers)")
+print("")
+
 let startTime = Date()
 let duration: TimeInterval = 120 // 2 minutes
 let tickInterval: TimeInterval = 0.1

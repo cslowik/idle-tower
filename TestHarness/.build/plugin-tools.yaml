@@ -1,0 +1,100 @@
+client:
+  name: basic
+  file-system: device-agnostic
+tools: {}
+targets:
+  "IdleTowerCore-arm64-apple-macosx15.0-debug.module": ["<IdleTowerCore-arm64-apple-macosx15.0-debug.module>"]
+  "PackageStructure": ["<PackageStructure>"]
+  "TestHarness-arm64-apple-macosx15.0-debug.exe": ["<TestHarness-arm64-apple-macosx15.0-debug.exe>"]
+  "TestHarness-arm64-apple-macosx15.0-debug.module": ["<TestHarness-arm64-apple-macosx15.0-debug.module>"]
+  "main": ["<TestHarness-arm64-apple-macosx15.0-debug.exe>","<TestHarness-arm64-apple-macosx15.0-debug.module>"]
+  "test": ["<TestHarness-arm64-apple-macosx15.0-debug.exe>","<TestHarness-arm64-apple-macosx15.0-debug.module>"]
+default: "main"
+nodes:
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/Sources/TestHarness/":
+    is-directory-structure: true
+    content-exclusion-patterns: [".git",".build"]
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness":
+    is-mutated: true
+commands:
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Economy.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Simulator.swift"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/sources"]
+    description: "Write auxiliary file /Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/sources"
+
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness-entitlement.plist":
+    tool: write-auxiliary-file
+    inputs: ["<entitlement-plist>","<com.apple.security.get-task-allow>"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness-entitlement.plist"]
+    description: "Write auxiliary file /Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness-entitlement.plist"
+
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/sources":
+    tool: write-auxiliary-file
+    inputs: ["<sources-file-list>","/Users/chrisslowik/Developer/IdleTower/TestHarness/Sources/TestHarness/main.swift"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/sources"]
+    description: "Write auxiliary file /Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/sources"
+
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.product/Objects.LinkFileList":
+    tool: write-auxiliary-file
+    inputs: ["<link-file-list>","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swift.o"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.product/Objects.LinkFileList"]
+    description: "Write auxiliary file /Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.product/Objects.LinkFileList"
+
+  "/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt":
+    tool: write-auxiliary-file
+    inputs: ["<swift-get-version>","/Library/Developer/CommandLineTools/usr/bin/swiftc"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"]
+    always-out-of-date: "true"
+    description: "Write auxiliary file /Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt"
+
+  "<IdleTowerCore-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule"]
+    outputs: ["<IdleTowerCore-arm64-apple-macosx15.0-debug.module>"]
+
+  "<TestHarness-arm64-apple-macosx15.0-debug.exe>":
+    tool: phony
+    inputs: ["<TestHarness-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    outputs: ["<TestHarness-arm64-apple-macosx15.0-debug.exe>"]
+
+  "<TestHarness-arm64-apple-macosx15.0-debug.module>":
+    tool: phony
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/TestHarness.swiftmodule"]
+    outputs: ["<TestHarness-arm64-apple-macosx15.0-debug.module>"]
+
+  "C.IdleTowerCore-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Catalog.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Economy.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/GameState.swift","/Users/chrisslowik/Developer/IdleTower/IdleTowerCore/Sources/IdleTowerCore/Simulator.swift","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/sources"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule"]
+    description: "Compiling Swift Module 'IdleTowerCore' (4 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","IdleTowerCore","-emit-dependencies","-emit-module","-emit-module-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule","-output-file-map","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/output-file-map.json","-parse-as-library","-incremental","-c","@/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/sources","-I","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-enable-batch-mode","-index-store-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-parse-as-library","-emit-objc-header","-emit-objc-header-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/IdleTowerCore-Swift.h","-color-diagnostics","-swift-version","6","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","idletowercore"]
+
+  "C.TestHarness-arm64-apple-macosx15.0-debug.exe":
+    tool: shell
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Catalog.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Economy.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/GameState.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/IdleTowerCore.build/Simulator.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.product/Objects.LinkFileList"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness"]
+    description: "Linking ./.build/arm64-apple-macosx/debug/TestHarness"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-L","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug","-o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness","-module-name","TestHarness","-Xlinker","-no_warn_duplicate_libraries","-emit-executable","-Xlinker","-alias","-Xlinker","_TestHarness_main","-Xlinker","_main","-Xlinker","-rpath","-Xlinker","@loader_path","@/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.product/Objects.LinkFileList","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/usr/lib/swift-5.5/macosx","-target","arm64-apple-macosx10.13","-Xlinker","-add_ast_path","-Xlinker","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule","-Xlinker","-add_ast_path","-Xlinker","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/TestHarness.swiftmodule","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xlinker","-rpath","-Xlinker","/Library/Developer/CommandLineTools/Library/Developer/Frameworks"]
+
+  "C.TestHarness-arm64-apple-macosx15.0-debug.exe-entitlements":
+    tool: shell
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness-entitlement.plist"]
+    outputs: ["<TestHarness-arm64-apple-macosx15.0-debug.exe-CodeSigning>"]
+    description: "Applying debug entitlements to ./.build/arm64-apple-macosx/debug/TestHarness"
+    args: ["codesign","--force","--sign","-","--entitlements","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness-entitlement.plist","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness"]
+
+  "C.TestHarness-arm64-apple-macosx15.0-debug.module":
+    tool: shell
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/Sources/TestHarness/main.swift","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/swift-version--1AB21518FC5DEDBE.txt","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/IdleTowerCore.swiftmodule","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/sources"]
+    outputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/main.swift.o","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/TestHarness.swiftmodule"]
+    description: "Compiling Swift Module 'TestHarness' (1 sources)"
+    args: ["/Library/Developer/CommandLineTools/usr/bin/swiftc","-module-name","TestHarness","-emit-dependencies","-emit-module","-emit-module-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules/TestHarness.swiftmodule","-output-file-map","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/output-file-map.json","-incremental","-c","@/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/TestHarness.build/sources","-I","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/Modules","-target","arm64-apple-macosx10.13","-enable-batch-mode","-index-store-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/index/store","-Onone","-enable-testing","-j10","-DSWIFT_PACKAGE","-DDEBUG","-module-cache-path","/Users/chrisslowik/Developer/IdleTower/TestHarness/.build/arm64-apple-macosx/debug/ModuleCache","-parseable-output","-Xfrontend","-entry-point-function-name","-Xfrontend","TestHarness_main","-color-diagnostics","-swift-version","6","-F","/Library/Developer/CommandLineTools/Library/Developer/Frameworks","-sdk","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-g","-Xcc","-isysroot","-Xcc","/Library/Developer/CommandLineTools/SDKs/MacOSX.sdk","-Xcc","-fPIC","-Xcc","-g","-package-name","testharness"]
+
+  "PackageStructure":
+    tool: package-structure-tool
+    inputs: ["/Users/chrisslowik/Developer/IdleTower/TestHarness/Sources/TestHarness/","/Users/chrisslowik/Developer/IdleTower/TestHarness/Package.swift","/Users/chrisslowik/Developer/IdleTower/TestHarness/Package.resolved"]
+    outputs: ["<PackageStructure>"]
+    description: "Planning build"
+    allow-missing-inputs: true
+
