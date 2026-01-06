@@ -97,15 +97,18 @@ func testSaveLoad() {
         print("  Producers: \(simulator2.state.producers)")
         print("  Last Update: \(simulator2.state.lastUpdate)")
         
+        // Calculate expected energy from generators (energy is capacity, recalculated from producers)
+        let expectedEnergy = simulator2.energyCapacity()
+        
         // Verify all fields match
         let materialsMatch = abs(simulator2.state.materials - materialsAfterPurchase) < 0.01
-        let energyMatch = abs(simulator2.state.energy - initialState.energy) < 0.01
+        let energyMatch = abs(simulator2.state.energy - expectedEnergy) < 0.01
         let dataMatch = abs(simulator2.state.data - initialState.data) < 0.01
         let producersMatch = simulator2.state.producers == producersAfterPurchase
         
         print("\n✅ Verification Results:")
         print("  Materials match: \(materialsMatch ? "✅" : "❌") (expected: \(materialsAfterPurchase), got: \(simulator2.state.materials))")
-        print("  Energy match: \(energyMatch ? "✅" : "❌") (expected: \(initialState.energy), got: \(simulator2.state.energy))")
+        print("  Energy match: \(energyMatch ? "✅" : "❌") (expected: \(expectedEnergy) from generators, got: \(simulator2.state.energy))")
         print("  Data match: \(dataMatch ? "✅" : "❌") (expected: \(initialState.data), got: \(simulator2.state.data))")
         print("  Producers match: \(producersMatch ? "✅" : "❌")")
         
