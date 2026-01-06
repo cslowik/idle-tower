@@ -1,14 +1,14 @@
 //
 //  Economy.swift
-//  IdleTower
+//  IdleTowerCore
 //
 //  Created by Chris Slowik on 1/5/26.
 //
 
 import Foundation
 
-enum Economy {
-    static func cost(base: ResourceCost, owned: Int) -> ResourceCost {
+public enum Economy {
+    public static func cost(base: ResourceCost, owned: Int) -> ResourceCost {
         let multiplier = pow(1.15, Double(owned))
         return ResourceCost(
             materials: base.materials * multiplier,
@@ -17,3 +17,4 @@ enum Economy {
         )
     }
 }
+

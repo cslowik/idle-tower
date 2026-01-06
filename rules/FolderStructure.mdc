@@ -1,0 +1,17 @@
+# Folder Structure
+
+/ Core
+  / Model
+    - GameState.swift
+    - Catalog.swift
+  / Sim
+    - Simulator.swift
+    - Economy.swift
+  / Util
+    - IDs.swift
+    - Formatting.swift
+
+/ Game
+  / Scenes
+  / UI
+  / Debug

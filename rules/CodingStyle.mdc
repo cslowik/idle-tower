@@ -1,0 +1,7 @@
+# Coding Style
+
+- Prefer simple structs over classes unless mutation or identity is required
+- Avoid protocols unless there are at least 2 concrete implementations
+- Avoid premature abstraction
+- Favor clarity over cleverness
+- Keep functions under ~40 lines when possible

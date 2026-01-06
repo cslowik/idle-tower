@@ -1,0 +1,167 @@
+# GameRules.mdc
+
+## Purpose
+This file defines the core, locked rules for the game: progression, resources, structure, and the primary game loop. Use this as the source of truth when implementing systems or designing new content.
+
+---
+
+## Theme & Visual Direction
+- Setting: **Clean, high-tech industrial sci-fi** (precision manufacturing, not corporate office, not lab).
+- Aesthetic: **Pixel-hinted** (not chunky). Info-dense UI with crisp silhouettes and subtle motion.
+- Card play VFX: **Glitch/pixel effects** (brief shears, scanline pulses, RGB split, data fragments), contained and readable.
+
+---
+
+## Core Fantasy
+- The player runs a **vertical megafactory** whose purpose is to **fabricate and launch starships**.
+- Ships are **products** (consumed on launch), not permanent collectibles.
+
+---
+
+## Primary Progression Axes
+
+### Facility XP (Persistent)
+- XP represents: **factory operational maturity / authorization**.
+- XP is **earned continuously** via:
+  - fabrication activity
+  - ship construction progress
+  - building floors
+- XP **never resets**.
+- XP unlocks **permissions/options**, NOT raw multipliers:
+  - additional build permissions (e.g., band expansion permissions)
+  - new floor types
+  - additional card slots / access
+- XP should not be directly purchasable.
+
+### Prestige (Reset-Based)
+- Prestige is **earned ONLY** by **launching ships**.
+- Prestige is **never purchasable**.
+- Prestige is **optional** and should feel like:
+  - "progress has flattened / diminishing returns → prestige for a stronger, more capable rerun"
+- Prestige resets:
+  - tower floors/layout
+  - in-progress ships
+  - run-state resources (e.g., Materials)
+- Prestige persists:
+  - Facility XP
+  - cards
+  - blueprints
+  - research
+- **First prestige unlocks Research** (clear early value signal).
+
+---
+
+## Resources (Locked)
+Keep the resource model small and readable.
+
+### Materials (Mats)
+- Easy to earn, high-volume baseline resource.
+- Used for: building floors, ship construction inputs.
+- **Purchasable** in the store (accelerator).
+
+### Energy
+- Capacity / throughput limiter.
+- Produced by specific floors/systems.
+- **Not purchasable** in the store.
+- Can be affected by cards and structural choices.
+
+### Data
+- Scarce / slower to earn than materials.
+- Associated with optimization/design activities.
+- Used for: research, blueprints, advanced systems.
+- **Purchasable** in the store (accelerator).
+
+### Prestige
+- Meta currency earned only from launching ships.
+- Never purchasable.
+
+> Note: Avoid global "stability"/decay meters that punish idle/offline play. If risk exists, it must be opt-in and tied to player actions (e.g., cards, overclock modes, per-ship tradeoffs).
+
+---
+
+## Factory Structure: Bands
+The tower is organized into **functional vertical bands** for clarity and a stable mental map.
+
+Default bands:
+1. Materials Band (lower)
+2. Fabrication Band (middle)
+3. Optimization Band (upper; unlocked later)
+4. Launch Band (top; minimal/fixed)
+
+### Floor Addition Rule (No Free Insertion)
+- Floors are added **only at the TOP of a band**.
+- Adding a floor to a band **pushes everything above upward**.
+- No drag/drop reordering as a baseline interaction.
+- Any exceptions to band rules must be **card-driven** and clearly signaled.
+
+---
+
+## Ships (Core Output)
+- There is always an active ship construction path (a "Ship Bay" may be implicit, but ship progress is always meaningful).
+- Ships consume Materials and Energy over time (idle-friendly).
+- Ships can have traits/modifiers influenced by:
+  - floors
+  - cards
+  - research
+- Ships are **launched and consumed**.
+- Launching ships:
+  - grants Prestige
+  - is the key macro "moment" of the loop
+
+---
+
+## Cards (Player Agency System)
+Cards are diegetic as **manufacturing overrides / experimental processes** (not "spells").
+- Cards must produce meaningful mechanical differences (rule-bending, new behaviors), not just tiny % boosts.
+- Cards persist across prestiges.
+- Duplicates are useful (upgrade/fuse/convert), never "wasted."
+- Cards should primarily enable **opt-in risk/reward** and **build identity**, not passive punishment.
+
+---
+
+## Research (Unlocked via Prestige)
+- Research is a **persistent meta-progression layer** unlocked by the **first prestige**.
+- Research consumes **Data** via research-capable floors (e.g., Research Lab).
+- Research unlocks:
+  - new parts/ship capabilities
+  - new floor types
+  - new card pools or archetypes
+- Research should be **branching** and support "paths" (e.g., war tech vs colonization vs experimental), even if largely thematic.
+
+---
+
+## Desired Player Loop (Behavioral Spec)
+### Moment-to-moment
+- Materials generate → fabrication consumes → ship progress advances → XP accumulates.
+
+### Short-term goals
+- Build new floors (within bands)
+- Improve throughput under Energy constraints
+- Use cards for bursts/optimization
+- Finish ships
+
+### Medium-term goals
+- XP unlocks more permissions/options (band expansions, new floor types)
+- Improve ship output and launch cadence
+
+### Long-term goals
+- Prestige when diminishing returns appear
+- Unlock research and deeper capabilities
+- Rerun with new tools and identity
+
+---
+
+## Non-Goals / Anti-Patterns
+- No mandatory babysitting mechanics (e.g., global stability decay).
+- No "gotcha" failures that invalidate offline progress.
+- No baseline free-insertion/reordering that breaks the mental map.
+- No prestige being primarily a flat multiplier; prestige must unlock capabilities and systems.
+
+---
+
+## Implementation Guidance
+When adding any new feature, validate:
+1. Does it preserve band clarity and UX?
+2. Does it reinforce ships-as-products → prestige?
+3. Does it create meaningful choices (especially via cards/research)?
+4. Does it avoid passive punishment and offline gotchas?

@@ -1,0 +1,25 @@
+# Architecture Rules
+
+## Layering
+- Core logic MUST NOT import SpriteKit, SwiftUI, or UIKit
+- UI layers MUST NOT implement game rules or economy math
+
+## Core Responsibilities
+Core owns:
+- GameState (saveable state)
+- Simulator (tick, buy, prestige)
+- Economy math (cost curves, production, caps)
+- Catalog data (producers, upgrades, cards, research)
+
+UI owns:
+- Rendering
+- Input handling
+- Debug controls
+- Presentation-only state
+
+## Mutation Rules
+- GameState may ONLY be mutated by Simulator
+- UI reads state but never writes directly
+
+## Time
+- Simulator.tick(dt:) is the ONLY place time advances

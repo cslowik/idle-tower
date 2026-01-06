@@ -8,7 +8,9 @@
 import Foundation
 
 struct GameState: Codable {
-    var resources: [String: Double] = ["credits": 0]
+    var materials: Double = 0
+    var energy: Double = 0
+    var data: Double = 0
     var producers: [String: Int] = [:]
     var lastUpdate: Date = .now
 }

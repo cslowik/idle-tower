@@ -4,5 +4,15 @@
 import PackageDescription
 
 let package = Package(
-    name: "IdleTowerCore"
+    name: "IdleTowerCore",
+    products: [
+        .library(
+            name: "IdleTowerCore",
+            targets: ["IdleTowerCore"]),
+    ],
+    targets: [
+        .target(
+            name: "IdleTowerCore",
+            dependencies: []),
+    ]
 )
