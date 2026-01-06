@@ -67,5 +67,42 @@ public final class Simulator {
         let owned = state.producers[id, default: 0]
         return Economy.cost(base: def.baseCost, owned: owned)
     }
+    
+    /// Save the current game state to a file
+    /// - Parameter fileURL: The URL where the state should be saved
+    /// - Returns: True if save succeeded, false otherwise
+    public func save(to fileURL: URL) -> Bool {
+        do {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            let data = try encoder.encode(state)
+            try data.write(to: fileURL, options: .atomic)
+            return true
+        } catch {
+            print("Failed to save game state: \(error)")
+            return false
+        }
+    }
+    
+    /// Load game state from a file
+    /// - Parameter fileURL: The URL where the state should be loaded from
+    /// - Returns: True if load succeeded, false otherwise
+    public func load(from fileURL: URL) -> Bool {
+        guard FileManager.default.fileExists(atPath: fileURL.path) else {
+            return false
+        }
+        
+        do {
+            let data = try Data(contentsOf: fileURL)
+            let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .iso8601
+            let loadedState = try decoder.decode(GameState.self, from: data)
+            self.state = loadedState
+            return true
+        } catch {
+            print("Failed to load game state: \(error)")
+            return false
+        }
+    }
 }
 
