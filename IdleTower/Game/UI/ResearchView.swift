@@ -11,7 +11,11 @@ import IdleTowerCore
 class ResearchView: SKNode {
     private let simulator: Simulator
     private let viewSize: CGSize
+    private var overlayBackground: SKShapeNode!
+    private var modalContainer: SKNode!
+    private var contentContainer: SKNode!
     private var scrollContainer: SKNode!
+    private var closeButton: SKNode!
     private var researchNodes: [String: SKNode] = [:] // Maps research ID to node
     private var lastTouchY: CGFloat = 0
     private var scrollOffset: CGFloat = 0
@@ -19,30 +23,110 @@ class ResearchView: SKNode {
     private let itemHeight: CGFloat = 90
     private let spacing: CGFloat = 10
     
+    var onClose: (() -> Void)?
+    
     init(simulator: Simulator, size: CGSize) {
         self.simulator = simulator
         self.viewSize = size
         super.init()
-        setupUI(size: size)
+        setupModal(size: size)
     }
     
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
     
-    private func setupUI(size: CGSize) {
+    private func setupModal(size: CGSize) {
+        // Create overlay background (semi-transparent black)
+        // Position relative to this node (which is centered in scene)
+        overlayBackground = SKShapeNode(rectOf: CGSize(width: size.width, height: size.height))
+        overlayBackground.fillColor = SKColor(white: 0, alpha: 0.7)
+        overlayBackground.strokeColor = SKColor.clear
+        overlayBackground.position = CGPoint(x: 0, y: 0) // Center of this node
+        overlayBackground.zPosition = 100
+        addChild(overlayBackground)
+        
+        // Create modal container (centered)
+        modalContainer = SKNode()
+        modalContainer.position = CGPoint(x: 0, y: 0) // Center of this node
+        modalContainer.zPosition = 101
+        addChild(modalContainer)
+        
+        // Modal window background
+        let modalWidth = size.width * 0.9
+        let modalHeight = size.height * 0.8
+        let modalBackground = SKShapeNode(rectOf: CGSize(width: modalWidth, height: modalHeight), cornerRadius: 10)
+        modalBackground.fillColor = SKColor(white: 0.15, alpha: 0.95)
+        modalBackground.strokeColor = SKColor.white
+        modalBackground.lineWidth = 3
+        modalBackground.position = CGPoint(x: 0, y: 0)
+        modalContainer.addChild(modalBackground)
+        
+        // Title label
+        let titleLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+        titleLabel.fontSize = 28
+        titleLabel.fontColor = SKColor.green
+        titleLabel.text = "Research"
+        titleLabel.horizontalAlignmentMode = .center
+        titleLabel.position = CGPoint(x: 0, y: modalHeight / 2 - 40)
+        modalContainer.addChild(titleLabel)
+        
+        // Close button
+        let closeButtonSize: CGFloat = 40
+        closeButton = SKNode()
+        let closeBackground = SKShapeNode(rectOf: CGSize(width: closeButtonSize, height: closeButtonSize), cornerRadius: 5)
+        closeBackground.fillColor = SKColor.red
+        closeBackground.strokeColor = SKColor.white
+        closeBackground.lineWidth = 2
+        closeButton.addChild(closeBackground)
+        
+        let closeLabel = SKLabelNode(fontNamed: "Arial-BoldMT")
+        closeLabel.fontSize = 24
+        closeLabel.fontColor = SKColor.white
+        closeLabel.text = "×"
+        closeLabel.verticalAlignmentMode = .center
+        closeButton.addChild(closeLabel)
+        
+        closeButton.position = CGPoint(x: modalWidth / 2 - closeButtonSize / 2 - 10, y: modalHeight / 2 - closeButtonSize / 2 - 10)
+        closeButton.isUserInteractionEnabled = true
+        modalContainer.addChild(closeButton)
+        
+        // Content container (scrollable area)
+        contentContainer = SKNode()
+        contentContainer.position = CGPoint(x: 0, y: -20) // Offset down from title
+        modalContainer.addChild(contentContainer)
+        
         // Create scroll container
         scrollContainer = SKNode()
-        addChild(scrollContainer)
+        contentContainer.addChild(scrollContainer)
         
-        // Enable user interaction for scrolling
+        // Enable user interaction
         self.isUserInteractionEnabled = true
+        
+        // Initially hidden
+        self.isHidden = true
+        self.alpha = 0
         
         updateResearch()
     }
     
+    func show() {
+        self.isHidden = false
+        let fadeIn = SKAction.fadeIn(withDuration: 0.2)
+        self.run(fadeIn)
+    }
+    
+    func hide() {
+        let fadeOut = SKAction.fadeOut(withDuration: 0.2)
+        let hideAction = SKAction.run { [weak self] in
+            self?.isHidden = true
+        }
+        self.run(SKAction.sequence([fadeOut, hideAction]))
+    }
+    
     func updateResearch() {
-        let width = viewSize.width - 40
+        let modalWidth = viewSize.width * 0.9
+        let width = modalWidth - 60 // Padding inside modal
         
         // Clear existing research nodes
         for (_, node) in researchNodes {
@@ -198,11 +282,33 @@ class ResearchView: SKNode {
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         guard let touch = touches.first else { return }
+        
+        // Check if touching close button
+        let locationInModal = touch.location(in: modalContainer)
+        if closeButton.contains(locationInModal) {
+            hide()
+            onClose?()
+            return
+        }
+        
+        // Check if touching overlay (outside modal) - close modal
+        let locationInModalForBackground = touch.location(in: modalContainer)
+        
+        // Get the modal background (first child of modalContainer)
+        if let modalBackground = modalContainer.children.first as? SKShapeNode {
+            if !modalBackground.contains(locationInModalForBackground) {
+                // Touched outside modal content - close modal
+                hide()
+                onClose?()
+                return
+            }
+        }
+        
         lastTouchY = touch.location(in: self).y
         isScrolling = false
         
         // Check if touching a purchasable research item
-        let locationInView = touch.location(in: self)
+        let locationInContent = touch.location(in: contentContainer)
         for (researchId, researchNode) in researchNodes {
             if researchNode.isUserInteractionEnabled {
                 let locationInNode = touch.location(in: researchNode)
@@ -227,8 +333,9 @@ class ResearchView: SKNode {
             scrollOffset += (currentY - lastTouchY)
             
             // Clamp scroll offset
+            let modalHeight = viewSize.height * 0.8
             let totalHeight = CGFloat(simulator.catalog.availableResearchTree.count) * (itemHeight + spacing)
-            let maxOffset = max(0, totalHeight - 400)
+            let maxOffset = max(0, totalHeight - modalHeight + 100) // 100 for title/close button area
             scrollOffset = max(0, min(maxOffset, scrollOffset))
             
             scrollContainer.position = CGPoint(x: 0, y: scrollOffset)
