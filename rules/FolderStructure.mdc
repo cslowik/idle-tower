@@ -1,17 +1,30 @@
 # Folder Structure
 
-/ Core
-  / Model
-    - GameState.swift
-    - Catalog.swift
-  / Sim
-    - Simulator.swift
-    - Economy.swift
-  / Util
-    - IDs.swift
-    - Formatting.swift
+## IdleTowerCore Package (Platform-Independent Game Logic)
+Pure game logic that MUST NOT import SpriteKit, SwiftUI, or UIKit.
+Can be reused across platforms (iOS app, TestHarness, etc.).
 
-/ Game
-  / Scenes
-  / UI
-  / Debug
+/ IdleTowerCore
+  / Sources/IdleTowerCore
+    - GameState.swift      # Saveable game state
+    - Catalog.swift        # Game data definitions
+    - Simulator.swift      # Core simulation logic
+    - Economy.swift        # Cost curves and economy math
+    - Card.swift           # Card system
+    - Research.swift       # Research system
+
+## IdleTower App (iOS-Specific Code)
+
+/ IdleTower
+  / Core                    # Platform-specific utilities
+    / Sim
+      - OfflineProgress.swift  # iOS offline progress calculation
+    / Util
+      - Persistence.swift      # iOS file I/O helpers
+    / Model                   # (Currently empty - models live in IdleTowerCore)
+  
+  / Game
+    / UI                     # SpriteKit UI components
+    / Debug                  # Debug UI and controls
+    - GameScene.swift        # Main game scene
+    - GameViewController.swift

@@ -9,14 +9,14 @@ import Foundation
 import IdleTowerCore
 
 /// Calculates and applies offline progress for the game
-public enum OfflineProgress {
+enum OfflineProgress {
     /// Maximum offline progress time (1 hour)
-    public static let maxOfflineTime: TimeInterval = 3600 // 1 hour in seconds
+    static let maxOfflineTime: TimeInterval = 3600 // 1 hour in seconds
     
     /// Calculate elapsed time since last update, capped at maxOfflineTime
     /// - Parameter lastUpdate: The date of the last update
     /// - Returns: The elapsed time, capped at maxOfflineTime
-    public static func calculateElapsedTime(since lastUpdate: Date) -> TimeInterval {
+    static func calculateElapsedTime(since lastUpdate: Date) -> TimeInterval {
         let elapsed = Date().timeIntervalSince(lastUpdate)
         return min(elapsed, maxOfflineTime)
     }
@@ -24,7 +24,7 @@ public enum OfflineProgress {
     /// Apply offline progress to a simulator by simulating the elapsed time
     /// - Parameter simulator: The Simulator instance to apply progress to
     /// - Returns: The amount of time that was simulated
-    public static func apply(to simulator: Simulator) -> TimeInterval {
+    static func apply(to simulator: Simulator) -> TimeInterval {
         let elapsed = calculateElapsedTime(since: simulator.state.lastUpdate)
         
         if elapsed > 0 {

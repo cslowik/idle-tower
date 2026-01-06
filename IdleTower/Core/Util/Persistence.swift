@@ -9,12 +9,12 @@ import Foundation
 import IdleTowerCore
 
 /// File I/O helpers for saving and loading game state
-public enum Persistence {
+enum Persistence {
     /// Default save file name
-    public static let defaultFileName = "gamestate.json"
+    static let defaultFileName = "gamestate.json"
     
     /// Get the URL for the save file in the Documents directory
-    public static func saveFileURL(fileName: String = defaultFileName) -> URL? {
+    static func saveFileURL(fileName: String = defaultFileName) -> URL? {
         guard let documentsDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first else {
             return nil
         }
@@ -26,7 +26,7 @@ public enum Persistence {
     ///   - state: The GameState to save
     ///   - fileName: Optional custom file name (defaults to "gamestate.json")
     /// - Returns: True if save succeeded, false otherwise
-    public static func save(_ state: GameState, fileName: String = defaultFileName) -> Bool {
+    static func save(_ state: GameState, fileName: String = defaultFileName) -> Bool {
         guard let url = saveFileURL(fileName: fileName) else {
             return false
         }
@@ -46,7 +46,7 @@ public enum Persistence {
     /// Load GameState from JSON file in Documents directory
     /// - Parameter fileName: Optional custom file name (defaults to "gamestate.json")
     /// - Returns: Loaded GameState if successful, nil otherwise
-    public static func load(fileName: String = defaultFileName) -> GameState? {
+    static func load(fileName: String = defaultFileName) -> GameState? {
         guard let url = saveFileURL(fileName: fileName) else {
             return nil
         }
@@ -72,7 +72,7 @@ public enum Persistence {
     ///   - simulator: The Simulator instance to save
     ///   - fileName: Optional custom file name (defaults to "gamestate.json")
     /// - Returns: True if save succeeded, false otherwise
-    public static func save(_ simulator: Simulator, fileName: String = defaultFileName) -> Bool {
+    static func save(_ simulator: Simulator, fileName: String = defaultFileName) -> Bool {
         guard let url = saveFileURL(fileName: fileName) else {
             return false
         }
@@ -84,7 +84,7 @@ public enum Persistence {
     ///   - simulator: The Simulator instance to load into
     ///   - fileName: Optional custom file name (defaults to "gamestate.json")
     /// - Returns: True if load succeeded, false otherwise
-    public static func load(into simulator: Simulator, fileName: String = defaultFileName) -> Bool {
+    static func load(into simulator: Simulator, fileName: String = defaultFileName) -> Bool {
         guard let url = saveFileURL(fileName: fileName) else {
             return false
         }

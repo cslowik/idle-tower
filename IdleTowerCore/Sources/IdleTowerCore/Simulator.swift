@@ -7,9 +7,18 @@
 
 import Foundation
 
+public enum ResourceType: String, CaseIterable {
+    case materials
+    case energy
+    case data
+}
+
 public final class Simulator {
     public private(set) var state: GameState
     public let catalog: Catalog
+    
+    /// Time scale multiplier for simulation speed (1x, 10x, 100x)
+    public var timeScale: Double = 1.0
 
     public init(state: GameState = GameState(), catalog: Catalog = .demo) {
         self.state = state
@@ -17,13 +26,16 @@ public final class Simulator {
     }
 
     public func tick(dt: TimeInterval) {
+        // Apply time scale multiplier
+        let scaledDt = dt * timeScale
+        
         // production
         for def in catalog.producers {
             let count = state.producers[def.id, default: 0]
             let production = def.baseOutput
-            state.materials += Double(count) * production.materials * dt
+            state.materials += Double(count) * production.materials * scaledDt
             // Energy is a capacity limit, not accumulated - only Materials and Data accumulate
-            state.data += Double(count) * production.data * dt
+            state.data += Double(count) * production.data * scaledDt
         }
         // Update energy capacity (sum of all generator capacities)
         state.energy = energyCapacity()
@@ -102,6 +114,41 @@ public final class Simulator {
         } catch {
             print("Failed to load game state: \(error)")
             return false
+        }
+    }
+    
+    /// Debug method to grant resources
+    /// - Parameters:
+    ///   - resource: The type of resource to grant
+    ///   - amount: The amount to grant
+    public func grant(resource: ResourceType, amount: Double) {
+        switch resource {
+        case .materials:
+            state.materials += amount
+        case .energy:
+            // Energy is capacity, so we can't directly grant it, but we can add a temporary generator
+            // For debug purposes, we'll just increase the energy capacity directly
+            state.energy += amount
+        case .data:
+            state.data += amount
+        }
+    }
+    
+    /// Debug method to dump current game state as JSON string
+    /// - Returns: JSON string representation of the current game state, or error message if encoding fails
+    public func dumpState() -> String {
+        do {
+            let encoder = JSONEncoder()
+            encoder.dateEncodingStrategy = .iso8601
+            encoder.outputFormatting = [.prettyPrinted, .sortedKeys]
+            let data = try encoder.encode(state)
+            if let jsonString = String(data: data, encoding: .utf8) {
+                return jsonString
+            } else {
+                return "Failed to convert state to string"
+            }
+        } catch {
+            return "Failed to encode game state: \(error)"
         }
     }
 }

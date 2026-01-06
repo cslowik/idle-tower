@@ -7,7 +7,6 @@
 
 import UIKit
 import SpriteKit
-import GameplayKit
 import IdleTowerCore
 
 class GameViewController: UIViewController {
@@ -15,31 +14,21 @@ class GameViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        // Load 'GameScene.sks' as a GKScene. This provides gameplay related content
-        // including entities and graphs.
-        if let scene = GKScene(fileNamed: "GameScene") {
-            
-            // Get the SKScene from the loaded GKScene
-            if let sceneNode = scene.rootNode as! GameScene? {
-                
-                // Copy gameplay related content over to the scene
-                sceneNode.entities = scene.entities
-                sceneNode.graphs = scene.graphs
-                
-                // Set the scale mode to scale to fit the window
-                sceneNode.scaleMode = .aspectFill
-                
-                // Present the scene
-                if let view = self.view as! SKView? {
-                    view.presentScene(sceneNode)
-                    
-                    view.ignoresSiblingOrder = true
-                    
-                    view.showsFPS = true
-                    view.showsNodeCount = true
-                }
-            }
-        }
+        // Initialize simulator with starting resources
+        let startingState = GameState(materials: 10) // Enough to buy first Miner
+        let simulator = Simulator(state: startingState)
+        
+        // Create scene
+        guard let view = self.view as? SKView else { return }
+        let scene = GameScene(size: view.bounds.size)
+        scene.scaleMode = .aspectFill
+        
+        // Set simulator on scene
+        scene.simulator = simulator
+        
+        // Present the scene
+        view.presentScene(scene)
+        view.ignoresSiblingOrder = true
     }
 
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
