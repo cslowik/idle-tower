@@ -22,10 +22,23 @@ public final class Simulator {
             let count = state.producers[def.id, default: 0]
             let production = def.baseOutput
             state.materials += Double(count) * production.materials * dt
-            state.energy += Double(count) * production.energy * dt
+            // Energy is a capacity limit, not accumulated - only Materials and Data accumulate
             state.data += Double(count) * production.data * dt
         }
+        // Update energy capacity (sum of all generator capacities)
+        state.energy = energyCapacity()
         state.lastUpdate = Date()
+    }
+    
+    /// Calculates total energy capacity from all generators
+    public func energyCapacity() -> Double {
+        var totalCapacity: Double = 0
+        for def in catalog.producers {
+            let count = state.producers[def.id, default: 0]
+            // Energy output represents capacity per unit
+            totalCapacity += Double(count) * def.baseOutput.energy
+        }
+        return totalCapacity
     }
 
     public func buyProducer(id: String) -> Bool {
@@ -35,13 +48,15 @@ public final class Simulator {
         let cost = Economy.cost(base: def.baseCost, owned: owned)
 
         guard state.materials >= cost.materials else { return false }
-        guard state.energy >= cost.energy else { return false }
+        // Check energy capacity (not accumulated energy) for energy costs
+        guard energyCapacity() >= cost.energy else { return false }
         guard state.data >= cost.data else { return false }
 
         state.materials -= cost.materials
-        state.energy -= cost.energy
         state.data -= cost.data
         state.producers[id] = owned + 1
+        // Update energy capacity after purchase
+        state.energy = energyCapacity()
         return true
     }
 
